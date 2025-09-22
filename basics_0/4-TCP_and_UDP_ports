@@ -2,3 +2,7 @@
 # This script displays listening TCP and UDP ports with PID and program nam
 
 netstat -lpn
+
+# -l → listening sockets only
+# -p → show PID/program name
+# -n → numeric output (don’t resolve service names)

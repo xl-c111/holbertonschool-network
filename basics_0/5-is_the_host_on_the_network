@@ -10,3 +10,5 @@ fi
 # Ping the provided IP address 5 times
 ping -c 5 "$1"
 
+# ping uses ICMP (Internet Control Message Protocol) to send small packets(called echo requests) to another device one the is_the_host_on_the_network
+# if the device is reachable, it responds with an echo reply
