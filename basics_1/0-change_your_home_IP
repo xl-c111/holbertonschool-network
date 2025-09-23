@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This script changes localhost -> 127.0.0.2
+# and facebook.com -> 8.8.8.8 in /etc/hosts
+
+set -e
+
+HOSTS_FILE="/etc/hosts"
+TMP_FILE="/tmp/hosts.tmp"
+
+# Backup once if no backup exists yet
+if [ ! -f "${HOSTS_FILE}.bak" ]; then
+  cp "$HOSTS_FILE" "${HOSTS_FILE}.bak"
+  echo "Backup created: ${HOSTS_FILE}.bak"
+fi
+
+# Filter out any existing localhost or facebook.com lines
+grep -v -E 'localhost$|facebook\.com$|::1' "$HOSTS_FILE" > "$TMP_FILE"
+
+
+# Add new mappings
+echo "127.0.0.2   localhost" >> "$TMP_FILE"
+echo "8.8.8.8     facebook.com" >> "$TMP_FILE"
+
+# Replace the hosts file safely
+cat "$TMP_FILE" > "$HOSTS_FILE"
+rm "$TMP_FILE"
+
