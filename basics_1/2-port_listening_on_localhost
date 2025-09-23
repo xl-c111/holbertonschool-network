@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Listen on TCP port 98 at 127.0.0.2
+
+nc -l 127.0.0.2 98
