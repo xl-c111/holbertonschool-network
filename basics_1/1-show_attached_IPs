@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script displays all active IPv4 addresses on the machine
+
+if command -v ip >/dev/null 2>&1; then
+    # Preferred: use ip command if available
+    ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+elif command -v ifconfig >/dev/null 2>&1; then
+    # Fallback: use ifconfig
+    ifconfig | grep "inet " | awk '{print $2}'
+elif command -v hostname >/dev/null 2>&1; then
+    # Last fallback: use hostname
+    hostname -I | tr ' ' '\n'
+else
+    exit 1
+fi
